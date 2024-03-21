@@ -39,9 +39,6 @@ class SyllabusDBUtil {
     AND (CASE WHEN :teacher = '' THEN 1 ELSE t.teacher_name LIKE CONCAT('%',:teacher,'%') OR t.teacher_name_kana LIKE CONCAT('%',:teacher,'%') END)
     LIMIT 100;`;
     async search(searchParams: SearchParams): Promise<ISubjectFull[]> {
-        const _searchParams = Object.fromEntries(Object.entries(searchParams).map(([k, v]) => [k, v === "" ? -1 : v]));
-        console.log(searchParams);
-        console.log(_searchParams);
         const result = await db.query(this.SyllabusDBQuery, searchParams);
         const syllabus: ISubjectFull[] = [];
         for (const row of result) {
