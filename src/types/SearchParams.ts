@@ -1,4 +1,5 @@
 type SearchParams = {
+    year: number;
     campus_id: number;
     department_id: string;
     schoolyear: number;
@@ -12,6 +13,7 @@ type SearchParams = {
 export default SearchParams;
 
 const defaultSearchParams: SearchParams = {
+    year: 0,
     campus_id: -1,
     department_id: "",
     schoolyear: 0,

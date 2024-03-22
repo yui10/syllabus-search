@@ -20,8 +20,6 @@ export async function GET(request: NextRequest) {
         if (period < 0) throw new Error("Invalid period: " + period);
         if (campus_id < -1) throw new Error("Invalid campus_id: " + campus_id);
 
-        console.log(department_id);
-
         const searchParamsObj: SearchParams = {
             year: year,
             campus_id: campus_id,

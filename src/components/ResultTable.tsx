@@ -1,6 +1,8 @@
 import ISubjectFull from '@/Interface/ISubjectFull'
+import { useModalHook } from '@/hooks/TableHook'
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import ResultTableRow from './ResultTableRow'
+import SyllabusModal from './SyllabusModal'
 type Props = {
     searchResult: ISubjectFull[]
 }
@@ -18,27 +20,31 @@ const Header = {
     TeacherName: "教員名",
 }
 const ResultTable = (props: Props) => {
+    const { open, setOpen, syllabus, setSyllabus } = useModalHook()
     return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>{Header.ClassCode}</TableCell>
-                    <TableCell>{Header.DepartmentName}</TableCell>
-                    <TableCell>{Header.Grade}</TableCell>
-                    <TableCell>{Header.SubjectName}</TableCell>
-                    <TableCell>{Header.SemesterName}</TableCell>
-                    <TableCell>{Header.SubjectType}</TableCell>
-                    <TableCell>{Header.ClassDay}</TableCell>
-                    <TableCell>{Header.ClassPeriod}</TableCell>
-                    <TableCell>{Header.TeacherName}</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {props.searchResult.map((result, index) =>
-                    <ResultTableRow key={index} searchResult={result} />
-                )}
-            </TableBody>
-        </Table>
+        <div>
+            <Table stickyHeader>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>{Header.ClassCode}</TableCell>
+                        <TableCell>{Header.DepartmentName}</TableCell>
+                        <TableCell>{Header.Grade}</TableCell>
+                        <TableCell>{Header.SubjectName}</TableCell>
+                        <TableCell>{Header.SemesterName}</TableCell>
+                        <TableCell>{Header.SubjectType}</TableCell>
+                        <TableCell>{Header.ClassDay}</TableCell>
+                        <TableCell>{Header.ClassPeriod}</TableCell>
+                        <TableCell>{Header.TeacherName}</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.searchResult.map((result, index) =>
+                        <ResultTableRow key={index} searchResult={result} setOpen={setOpen} setSyllabus={setSyllabus} />
+                    )}
+                </TableBody>
+            </Table>
+            <SyllabusModal open={open} setOpen={setOpen} syllabus={syllabus} />
+        </div>
     )
 }
 

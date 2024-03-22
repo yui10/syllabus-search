@@ -1,26 +1,29 @@
-import ISubjectFull from '@/Interface/ISubjectFull'
-import { TableCell, TableRow } from '@mui/material'
-import React from 'react'
+import ISubjectFull from '@/Interface/ISubjectFull';
+import { TableCell, TableRow } from '@mui/material';
 type Props = {
-  searchResult: ISubjectFull
+    searchResult: ISubjectFull;
+    setOpen: (open: boolean) => void;
+    setSyllabus: (syllabus: ISubjectFull) => void;
 }
 const ResultTableRow = (props: Props) => {
-  const onRowClick = () => {
-    console.log(props.searchResult);
-  }
-  return (
-    <TableRow onClick={onRowClick}>
-      <TableCell>{props.searchResult.ClassCode}</TableCell>
-      <TableCell>{props.searchResult.DepartmentName}</TableCell>
-      <TableCell>{props.searchResult.Grade == 0 ? "" : props.searchResult.Grade}</TableCell>
-      <TableCell>{props.searchResult.SubjectName}</TableCell>
-      <TableCell>{props.searchResult.SemesterName}</TableCell>
-      <TableCell>{props.searchResult.SubjectType}</TableCell>
-      <TableCell>{props.searchResult.ClassDay}</TableCell>
-      <TableCell>{props.searchResult.ClassPeriod == 9 ? "" : props.searchResult.ClassPeriod}</TableCell>
-      <TableCell>{props.searchResult.TeacherName}</TableCell>
-    </TableRow >
-  )
+    const { searchResult, setOpen, setSyllabus } = props;
+    const onRowClick = () => {
+        setSyllabus(searchResult);
+        setOpen(true);
+    }
+    return (
+        <TableRow onClick={onRowClick} hover={true}>
+            <TableCell>{searchResult.ClassCode}</TableCell>
+            <TableCell>{searchResult.DepartmentName}</TableCell>
+            <TableCell>{searchResult.Grade == 0 ? "" : searchResult.Grade}</TableCell>
+            <TableCell>{searchResult.SubjectName}</TableCell>
+            <TableCell>{searchResult.SemesterName}</TableCell>
+            <TableCell>{searchResult.SubjectType}</TableCell>
+            <TableCell>{searchResult.ClassDay}</TableCell>
+            <TableCell>{searchResult.ClassPeriod == 9 ? "" : searchResult.ClassPeriod}</TableCell>
+            <TableCell>{searchResult.TeacherName}</TableCell>
+        </TableRow >
+    )
 }
 
 export default ResultTableRow
