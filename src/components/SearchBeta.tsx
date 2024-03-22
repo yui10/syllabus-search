@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 
+const years=[2024,2023];
 const lbl_type = [["1", '必修'], ["2", '選択'], ["3", '選択必修'], ["4", '自由']];
 const day_of_week = [["A", "月"], ["B", "火"], ["C", "水"], ["D", "木"], ["E", "金"], ["F", "土"], ["Z", "集"]];
 const semester = [["00", "通年"], ["01", "前期"], ["02", "後期"], ["03", "集前"], ["04", "集後"]];
@@ -26,6 +27,7 @@ type Props = {
 }
 
 const Search = (props: Props) => {
+    const [year, setYear] = useState<number>(years[0]);
     const [select_campus, setSelectCampus] = useState<string>("")
     let select_department: string | null = null
     const [schoolyear, setSchoolyear] = useState<string>("");
@@ -58,6 +60,7 @@ const Search = (props: Props) => {
 
     const onSearch = async () => {
         const params: SearchParams = {
+            year: year,
             campus_id: Number(select_campus === '' ? -1 : select_campus),
             department_id: select_department ?? '',
             schoolyear: Number(schoolyear),
@@ -82,6 +85,17 @@ const Search = (props: Props) => {
     return (
         <>
             <Grid container spacing={2} rowSpacing={2}>
+                <Grid item xs={12}>
+                    <FormControl variant="standard" fullWidth>
+                        <InputLabel>年度</InputLabel>
+                        <Select
+                            value={year}
+                            onChange={(event) => setYear(Number(event.target.value))}
+                        >
+                            {years.map((year) => (<MenuItem value={year} key={year}>{year}</MenuItem>))}
+                        </Select>
+                    </FormControl>
+                </Grid>
                 <Grid item xs={6}>
                     <Autocomplete
                         id="department-autocomplete"

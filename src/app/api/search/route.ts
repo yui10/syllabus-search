@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
+        const year = Number(searchParams.get("year") ?? 0);
         const campus_id = Number(searchParams.get("campus_id") ?? -1);
         const department_id = searchParams.get("department_id") ?? "";
         const schoolyear = Number(searchParams.get("schoolyear") ?? 0);
@@ -15,13 +16,14 @@ export async function GET(request: NextRequest) {
         const semester = searchParams.get("semester") ?? "";
         const teacher = searchParams.get("teacher") ?? "";
 
-        if (schoolyear < 0) throw new Error("Invalid schoolyear: " + schoolyear);
+        if (year < 0) throw new Error("Invalid year: " + year);
         if (period < 0) throw new Error("Invalid period: " + period);
         if (campus_id < -1) throw new Error("Invalid campus_id: " + campus_id);
 
         console.log(department_id);
 
         const searchParamsObj: SearchParams = {
+            year: year,
             campus_id: campus_id,
             department_id: department_id,
             schoolyear: schoolyear,
@@ -35,12 +37,13 @@ export async function GET(request: NextRequest) {
         const result = await SyllabusDB.search(searchParamsObj);
         return NextResponse.json(result);
     } catch (error) {
+        console.error(request.nextUrl.searchParams.toString());
         console.error(error);
         const result: ISubjectFull[] = [{
             ClassCode: "",
             Year: 0,
             SubjectCode: "",
-            SubjectName: "",
+            SubjectName: "error",
             SubjectType: "",
             SemesterCode: "",
             SemesterName: "",

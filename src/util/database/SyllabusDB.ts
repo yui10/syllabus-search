@@ -28,7 +28,8 @@ class SyllabusDBUtil {
     INNER JOIN term tm ON s.term_id = tm.term_id
     INNER JOIN day_of_week dw ON s.day_of_week = dw.day_of_week_id
     INNER JOIN teacher t ON s.teacher_id = t.teacher_id
-    WHERE (CASE WHEN :campus_id = -1 THEN 1 ELSE s.campus_id = :campus_id END)
+    WHERE s.year = :year
+    AND (CASE WHEN :campus_id = -1 THEN 1 ELSE s.campus_id = :campus_id END)
     AND (CASE WHEN :department_id = '' THEN 1 ELSE s.department_id = :department_id END)
     AND (CASE WHEN :schoolyear <= 0 THEN 1 ELSE s.schoolyear = :schoolyear END)
     AND (CASE WHEN :subject_type <= 0 THEN 1 ELSE s.subject_type_id = :subject_type END)
