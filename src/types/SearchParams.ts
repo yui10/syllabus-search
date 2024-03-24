@@ -1,14 +1,14 @@
 type SearchParams = {
-    year: number;
-    campus_id: number;
-    department_id: string;
-    schoolyear: number;
-    subject_name: string;
-    subject_type: number;
-    day_of_week: string;
-    period: number;
-    semester: string;
-    teacher: string;
+    year: number;           // 学年
+    campus_id: number;      // キャンパス
+    department_id: string;  // 学科
+    schoolyear: number;     // 学年
+    subject_name: string;   // 科目
+    subject_type: number;   // 科目区分
+    day_of_week: string;    // 曜日
+    period: number;         // 時限
+    semester: string;       // 学期
+    teacher: string;        // 教員
 };
 export default SearchParams;
 

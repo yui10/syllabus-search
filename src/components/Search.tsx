@@ -58,6 +58,7 @@ const Search = (props: Props) => {
 
     const onSearch = async () => {
         const params: SearchParams = {
+            year: 2023,
             campus_id: Number(select_campus ?? -1),
             department_id: select_department ?? '',
             schoolyear: Number(select_schoolyear.current?.value ?? -1),
